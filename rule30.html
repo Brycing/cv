@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rule 30 Pulsing Gradient Loading</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #222; /* dark gray background */
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: #222;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,0.7);
+      font-family: system-ui, sans-serif;
+      font-size: clamp(14px, 2.5vw, 20px);
+      pointer-events: none;
+      user-select: none;
+      mix-blend-mode: screen;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="rule30"></canvas>
+  <div class="overlay">Loading…</div>
+
+  <script>
+    const REDIRECT_URL = "contact.html";
+    const DELAY_MS = 7500;
+    const CELL_SIZE = 4;
+    const WRAP_AROUND = true;
+
+    const canvas = document.getElementById("rule30");
+    const ctx = canvas.getContext("2d", { alpha: false });
+
+    function fitCanvas() {
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      canvas.width = Math.floor(canvas.clientWidth * dpr);
+      canvas.height = Math.floor(canvas.clientHeight * dpr);
+      ctx.imageSmoothingEnabled = false;
+    }
+
+    const ro = new ResizeObserver(() => {
+      fitCanvas();
+      resetAutomaton();
+    });
+    ro.observe(canvas);
+
+    function nextCell(left, center, right) {
+      return left ^ (center | right);
+    }
+
+    let cols = 0;
+    let rowsDrawn = 0;
+    let row = [];
+    let bufferRow = [];
+
+    function resetAutomaton() {
+      cols = Math.floor(canvas.width / CELL_SIZE);
+      rowsDrawn = 0;
+      row = new Array(cols);
+      bufferRow = new Array(cols);
+      row.fill(0);
+      row[Math.floor(cols / 2)] = 1;
+      ctx.fillStyle = "#222"; // dark gray background
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Dynamic gradient generator
+    function makeGradient(time) {
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+
+      // Animate stops with sine waves
+      const offset = (Math.sin(time * 0.005) + 1) / 2; // oscillates 0–1
+      const offset2 = (Math.sin(time * 0.007 + 2) + 1) / 2;
+      const offset3 = (Math.sin(time * 0.009 + 4) + 1) / 2;
+
+      grad.addColorStop(0, `rgba(0,255,255,${0.5 + 0.5*offset})`);   // cyan
+      grad.addColorStop(0.5, `rgba(57,255,20,${0.5 + 0.5*offset2})`); // neon green
+      grad.addColorStop(1, `rgba(255,105,180,${0.5 + 0.5*offset3})`); // pink
+
+      return grad;
+    }
+
+    function drawRow(y, time) {
+      ctx.fillStyle = makeGradient(time);
+      for (let x = 0; x < cols; x++) {
+        if (row[x]) {
+          ctx.fillRect(x * CELL_SIZE, y, CELL_SIZE, CELL_SIZE);
+        }
+      }
+    }
+
+    function step() {
+      for (let i = 0; i < cols; i++) {
+        const leftIndex  = WRAP_AROUND ? (i - 1 + cols) % cols : i - 1;
+        const rightIndex = WRAP_AROUND ? (i + 1) % cols : i + 1;
+        const left  = WRAP_AROUND ? row[leftIndex]  : (leftIndex  >= 0 ? row[leftIndex]  : 0);
+        const center = row[i];
+        const right = WRAP_AROUND ? row[rightIndex] : (rightIndex < cols ? row[rightIndex] : 0);
+        bufferRow[i] = nextCell(left, center, right);
+      }
+      [row, bufferRow] = [bufferRow, row];
+    }
+
+    let rafId = null;
+    function animate(time) {
+      const rowsPerFrame = 3;
+      for (let k = 0; k < rowsPerFrame; k++) {
+        const y = rowsDrawn * CELL_SIZE;
+        if (y >= canvas.height) {
+          cancelAnimationFrame(rafId);
+          return;
+        }
+        drawRow(y, time);
+        step();
+        rowsDrawn++;
+      }
+      rafId = requestAnimationFrame(animate);
+    }
+
+    fitCanvas();
+    resetAutomaton();
+    animate(0);
+
+    setTimeout(() => {
+      location.href = REDIRECT_URL;
+    }, DELAY_MS);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(rafId);
+      else rafId = requestAnimationFrame(animate);
+    });
+  </script>
+</body>
+</html>

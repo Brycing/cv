@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zach - Resume & CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Dosis', sans-serif;
+            background-color: #F0F4F8; /* Light grey-blue from Brilliant Blues palette */
+            color: #334155; /* Slate-700 for text */
+        }
+       .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+           .chart-container {
+                height: 350px;
+            }
+        }
+       .expertise-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+       .expertise-detail.active {
+            max-height: 500px; /* Adjust based on expected content height */
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+       .cert-card {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+       .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+       .cert-card.active {
+            border-color: #0065C8; /* Medium blue border when active */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .github-corner {
+            /* Positions the link in the top right corner.
+               'fixed' keeps it there even when you scroll. */
+            position: fixed;
+            top: 1rem; /* 16px */
+            right: 1rem; /* 16px */
+            z-index: 1000; /* Ensures it stays on top of other content */
+        }
+
+        .github-corner svg {
+            /* Sets the size of the icon */
+            width: 36px;
+            height: 36px;
+            /* Fills the icon with the current text color */
+            fill: currentColor;
+            /* Smooth transition for the hover effect */
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Changes the icon's opacity on hover for a nice visual feedback */
+        .github-corner:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+    <a href="https://github.com/nylar357" target="_blank" rel="noopener noreferrer" class="github-corner" aria-label="View source on GitHub">
+        <!-- This is the SVG code for the GitHub icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" version="1.1" aria-hidden="true" fill="currentColor"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+    </a>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-white p-6 shadow-md">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-center">
+            <nav class="flex flex-wrap justify-center sm:justify-end gap-4 md:gap-4">
+                <a href="test2.html" class="inline-block mt-3 px-4 py-2 bg-cyan-600 text-white font-semibold rounded-full shadow-md hover:bg-cyan-700 transition-colors duration-200">
+                    Home
+                </a>
+                <span class="inline-block mt-3 px-4 py-2 bg-cyan-800 text-white font-semibold rounded-full shadow-md">
+                    Projects
+                </span>
+                <a href="research.html" class="inline-block mt-3 px-4 py-2 bg-cyan-600 text-white font-semibold rounded-full shadow-md hover:bg-cyan-700 transition-colors duration-200">
+                    Research
+                </a>
+                <a href="term.html" class="inline-block mt-3 px-4 py-2 bg-cyan-600 text-white font-semibold rounded-full shadow-md hover:bg-cyan-700 transition-colors duration-200">
+                    Contact
+                </a>
+                <a href="accomplish.html" class="inline-block mt-3 px-4 py-2 bg-cyan-600 text-white font-semibold rounded-full shadow-md hover:bg-cyan-700 transition-colors duration-200">
+                    Certifications
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-6 md:p-12">
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-10 lg:p-12">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-cyan-900 mb-4">Research Exploration of Cybersecurity</h1>
+            <p class="text-gray-600 text-lg mb-8">This page serves to give you a guided tour of my current and past research efforts.  Both personal and professional, encompassing scripting to embedded devices.  Adapting the most modern and capable technologies for cybersecurity roles.</p>
+            <div class="border-b-2 border-cyan-500 my-8"></div>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="intro-embedded-security" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00449E] mb-4">The Evolving Landscape: Integrated Systems in Cybersecurity</h2>
+                <p class="text-lg leading-relaxed mb-4">
+                    The proliferation of integrated systems, microcontrollers, IOT, and these devices allowing for easier and streamlined Industrial Control Systems has profoundly reshaped the cybersecurity landscape, blurring the lines between the digital and physical worlds. These devices, once niche, are now ubiquitous, powering everything from industrial control systems to everyday consumer electronics. While bringing immense convenience and automation, their widespread adoption has also introduced new attack surfaces and complex security challenges, both at large and within corporate environments.
+                </p>
+                <p class="text-lg leading-relaxed mb-4">
+                    Pivotal events and devices highlight this shift:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-lg leading-relaxed mb-6">
+                    <li>
+                        <strong>Stuxnet (2010):</strong> This sophisticated cyberweapon demonstrated the devastating potential of targeting Industrial Control Systems (ICS) and SCADA environments. It specifically exploited vulnerabilities in Siemens PLCs, causing physical damage to Iranian centrifuges by manipulating their rotational speeds. Stuxnet was a stark reminder that cyberattacks could have tangible, real-world consequences, forcing industries to re-evaluate the security of their operational technology (OT) networks.
+                    </li>
+                    <li>
+                        <strong>Sandworm - NotPetya (2017):</strong> The sophistocated APT group serving Russian interests, demonstrated the next evolution in targeting ICS.  In 2017 the world witnessed the largest and most destructive cyberattack in history.  NotPetya paralyzed drug and food manufacturing, shipping, hospitals, postal systems, and ATMs.  Inflicting an unprecedented $10 billion dollars worth of damage.  <b>Prior to this attack Sandworm conducted a less destructive more stealthy reconnaissance campaign which included a listener node specially designed to gather data on the General Electric - Cimplicity ICS systems</b>.  This campaign was key to the success the group saw with NotPetya and further destructive operations in Ukraine.
+                    </li>
+                    <li>
+                        <strong>Sandworm - 2022 Campaign:</strong> In 2022, the Russian state-sponsored hacking group Sandworm executed disruptive cyberattacks across Ukraine and Europe.  <b>AcidRain Wiper malware to disrupt the KA-SAT</b> satellite network. The attack primarily targeted Ukraine's military communications, but also impacted thousands of users across Europe.   On October 10, 2022, Sandworm successfully disrupted the power grid of an unnamed Ukrainian energy provider.  Two days after the power outage, Sandworm launched a variant of <b>CaddyWiper malware</b> to erase data on the victim's IT network.  In April 2022, Sandworm attempted to deploy its sophisticated <b>Industroyer2 malware against high-voltage electrical substations.</b>  These tools were designed to render systems unbootable and irrecoverably destroy data and all included where the digital world meets critical infrastructure.
+                    </li>
+                </ul>
+                <p class="text-lg leading-relaxed">
+                    These examples illustrate that cybersecurity is no longer confined to traditional IT networks. It now encompasses the physical devices that control our infrastructure, vehicles, and daily lives. Understanding and securing these integrated systems, microcontrollers, and implants is paramount for comprehensive defense in both national security and corporate cybersecurity strategies. My projects in this domain reflect a hands-on approach to tackling these critical challenges.
+                </p>
+            </div>
+        </section>
+    </main>
+        <section id="projects" class="bg-white py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Pinned Projects</h2>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Project Card 1: XScraper -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://raw.githubusercontent.com/nylar357/XScraper/main/img/marylinavatar.png" alt="XScraper" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">Custom Configurable Web Scrapers : XScraper VulnScraper </h3>
+                            <p class="text-slate-600 mb-4 text-sm">This project provides a configurable web scraping tool focused on extracting security relevant data. Adaptable & Proxy-able to monitor various online sources for indicators of compromise (IoCs), mentions of vulnerabilities, potential data leaks (on public sites like pastebins), or other security-related keywords and patterns.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python3</span>
+                                <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Beautiful Soup</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded-full">IPRoyal</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://github.com/nylar357/XScraper" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on GitHub →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: Ukrainian Cyber Ops -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyd_CD5ZEmMKhnSsL0PBObJHjplbR2-5jmLZaHP5UoErmpdK3U_trMDXUKmMPsyy6N3krEUzZsz3t9vZAKkvV7Dr8pkAhgY9Tdj5___SUgXESk29jVzzPoSm1PXMXhkiigKfo3Zz_fqYUi9u9ndNEivrRrqrO_fJ-xvYp0oUyCLWurtQ4vjpSUOf1tuZ4S/w303-h407/it.png" alt="Ukrainian Ops" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">Hybrid Russian Cyber Operations</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Ukrainian offensive operators published target lists, with that I conducted a deep dive into Russian military infrastructure, inside Russia, Chechnya, and Belarus. Using a variety of scanning techniques, OSINT.</p>
+                             <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Spiderfoot OSINT</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Gemini AI Deep Research</span>
+                                <span class="bg-rose-100 text-rose-800 text-xs font-medium px-2.5 py-0.5 rounded-full">WebCheck.xyz</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://nylar357.blogspot.com/search/label/Russian%20Cyber%20Operations" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on Blogger →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KASM Workspace Server -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://imagedelivery.net/NpoQJ8RlE72BuvcAxq_8tw/8aa2934b-3f6c-4c68-d6fe-78226fd32e00/public" alt="Real-Time Object Detection" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">KASM Workspace Server</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Kasm Workspaces is more than a virtual desktop platform—it's a strategic enabler for organizations driven by its ability to meet the evolving demands of remote work, cybersecurity, data protection, and cost efficiency.  My implementation is tunnelled thru cloudflare zero trust for web access.</p>
+                             <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Docker</span>
+                                <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Kasm</span>
+                                <span class="bg-lime-100 text-lime-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Cloudflare Zero Trust</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://nylar357.blogspot.com/2025/10/kasm-workspace-server.html" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on Blogger →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Spiderfoot OSINT for Reporting -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://imagedelivery.net/NpoQJ8RlE72BuvcAxq_8tw/9cb68c73-0b6f-4917-46ec-f54af133b700/public" alt="Auto Checkout Bot" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">Transform a CSV tsunami to a coherant report!</h3>
+                            <p class="text-slate-600 mb-4 text-sm">A human analyst would need to spend hours, or even days, pivoting through in depth OSINT analysis to build a mental map of the target. I needed a way to do this in seconds.</p>
+                             <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Kasm</span>
+                                <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Spiderfoot</span>
+                                <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Gemini AI</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://nylar357.blogspot.com/2025/10/spiderfoot-osint-scan-for-reporting-see.html" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on Blogger →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 5: Copilot for Cyber Security -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://imagedelivery.net/NpoQJ8RlE72BuvcAxq_8tw/0d084546-0a4d-4838-89a1-399713302d00/public" alt="Offensive AI" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">Copilot in Cyber Security : Powerpwn</h3>
+                            <p class="text-slate-600 mb-4 text-sm">PowerPwn leverages an offensive security toolset to audit Microsoft365 and Copilot Servers.</p>
+                             <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Copilot</span>
+                                <span class="bg-fuchsia-100 text-fuchsia-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
+                                <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://github.com/nylar357/copilot_cybersecurity/tree/main" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on GitHub →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Map -->
+                    <div class="bg-slate-50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <img src="https://imagedelivery.net/NpoQJ8RlE72BuvcAxq_8tw/bea1aed5-d0b1-4d61-4310-5c68832ead00/public" alt="Report/Scan Analysis with Visual Map" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-slate-900">Data Driven Analysis</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Visual Map: Real-Time Security Auditing developed by afsh4ck, is a game-changer. It transforms raw Nmap XML output into an interactive dashboard with host scan risk scoring, cve dash, service distribution, and attack path analysis. </p>
+                             <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Visual Map</span>
+                                <span class="bg-violet-100 text-violet-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                                <span class="bg-stone-200 text-stone-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Sublist3r</span>
+                            </div>
+                            <div class="mt-4 flex space-x-4">
+                                <a href="https://imagedelivery.net/NpoQJ8RlE72BuvcAxq_8tw/1c88cfaa-62c7-44fd-e631-80ceeb32f000/public" target="_blank" class="text-indigo-600 hover:underline font-semibold">View on my Blog →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+<button id="toTopBtn" class="hidden fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-600 text-white font-bold w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-opacity duration-300 ease-in-out">
+        <!-- SVG Icon for an up arrow -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <script>
+        // --- JavaScript for the floating "Back to Top" button ---
+
+        // Get the button element from the DOM
+        const toTopButton = document.getElementById('toTopBtn');
+
+        // Define a scroll threshold (e.g., 200 pixels)
+        const scrollThreshold = 200;
+
+        // Function to show or hide the button based on scroll position
+        const toggleButtonVisibility = () => {
+            if (window.scrollY > scrollThreshold) {
+                // If scrolled past the threshold, remove the 'hidden' class to show the button
+                toTopButton.classList.remove('hidden');
+            } else {
+                // Otherwise, add the 'hidden' class to hide it
+                toTopButton.classList.add('hidden');
+            }
+        };
+
+        // Function to scroll to the top of the page
+        const scrollToTop = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // This ensures a smooth scrolling animation
+            });
+        };
+
+        // Add a 'scroll' event listener to the window
+        window.addEventListener('scroll', toggleButtonVisibility);
+
+        // Add a 'click' event listener to the button
+        toTopButton.addEventListener('click', scrollToTop);
+    </script>
+
+</body>
+</html>
